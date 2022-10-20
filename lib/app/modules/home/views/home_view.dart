@@ -28,36 +28,43 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     Get.put(TodohomeView());
-    return Scaffold(
-      backgroundColor: Color(0xffF8FFFD),
-      body: widgets[controller.selectedBottomIndex],
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: Get.width,
-            height: 60.h,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: List.generate(
-                bottomNavigationBar.length,
-                (index) => TextButton(
-                  onPressed: () async {},
-                  child: SvgPicture.asset(
-                    bottomNavigationBar[index],
-                    width: 24.w,
-                    height: 24.h,
+    return GetBuilder<HomeController>(builder: (controller) {
+      return Scaffold(
+        backgroundColor: Color(0xffF8FFFD),
+        body: controller.widgets[controller.selectedBottomIndex],
+        bottomNavigationBar: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: Get.width,
+              height: 60.h,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: List.generate(
+                  bottomNavigationBar.length,
+                  (index) => GestureDetector(
+                    onTap: () {
+                      controller.updateBottomIndex(index);
+                    },
+                    child: SvgPicture.asset(
+                      bottomNavigationBar[index],
+                      width: 24.w,
+                      height: 24.h,
+                      color: controller.selectedBottomIndex == index
+                          ? Colors.green
+                          : Colors.grey,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 6.h),
-        ],
-      ),
-    );
+            SizedBox(height: 6.h),
+          ],
+        ),
+      );
+    });
   }
 }

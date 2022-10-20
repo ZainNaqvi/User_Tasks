@@ -1,5 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
+import '../../calender/views/calender_view.dart';
+import '../../notification/views/notification_view.dart';
+import '../../search/views/search_view.dart';
+import '../../todohome/views/todohome_view.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
@@ -11,27 +17,21 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onClose() {
-    // TODO: implement onClose
-    super.onClose();
-  }
-
-  @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     hideBottom();
   }
 
+  List widgets = <Widget>[
+    TodohomeView(),
+    CalenderView(),
+    NotificationView(),
+    SearchView(),
+  ];
   hideBottom() async {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,
         overlays: [SystemUiOverlay.top]);
-  }
-
-  int selectedIndex = 0;
-  updateSelectedIndex(int index) {
-    selectedIndex = index;
-    update();
   }
 
   int selectedBottomIndex = 0;
